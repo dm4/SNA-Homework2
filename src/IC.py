@@ -8,7 +8,7 @@ def bfs(G, queue, infected_node_num):
     while len(queue) > 0:
         node = queue.popleft()
         for nb in G.successors(node):
-            if G.node[nb]['infected']:
+            if G.node[nb]['infected'] or G.node[nb]['blocked']:
                 continue
             else:
                 # check should be infected

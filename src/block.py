@@ -55,7 +55,10 @@ for fn in filename:
     block_ratio = 0.05
     print "block ratio " + str(block_ratio)
     # use first n block nodes
-    block_list = block_list[:int(G.number_of_nodes() * block_ratio)]
+    if block_ratio == 0:
+        block_list = []
+    else:
+        block_list = block_list[:int(G.number_of_nodes() * block_ratio)]
 
     # mark blocked
     for b_node in block_list:
