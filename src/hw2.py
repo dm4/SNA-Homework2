@@ -65,8 +65,6 @@ for fn in filename:
             for b_node in block_list:
                 G.node[b_node['node']]['blocked'] = True
 
-            print '\tblock %d nodes' % len(block_list)
-
             # do bfs
             if algo == 'lt':
                 infected_node_num = LT.bfs(G, queue, infected_node_num)
