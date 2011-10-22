@@ -40,30 +40,17 @@ for fn in filename:
             # initial infected node number
             infected_node_num = len(queue)
 
-            # decide node to block
+            # read block node list from file
             block_list = []
-            for node in G.nodes():
-                if G.node[node]['infected']:
-                    continue
-                else:
-                    weight = 0
-                    in_infected = 0
-                    for in_node in G.predecessors(node):
-                        if G.node[in_node]['infected']:
-                            in_infected += 1
-                    weight = in_infected * 2 + G.out_degree(node)
-                    block_list.append({'node': node, 'weight': weight})
-            block_list.sort(key=lambda x:x['weight'], reverse=True)
-
-            # use first n block nodes
-            if block_ratio == 0:
-                block_list = []
-            else:
-                block_list = block_list[:int(G.number_of_nodes() * block_ratio)]
+            if block_ratio != 0:
+                f = open('../part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt', 'r')
+                for line in f:
+                    element = line.split()
+                    block_list.append(element[0])
 
             # mark blocked
-            for b_node in block_list:
-                G.node[b_node['node']]['blocked'] = True
+            for node in block_list:
+                G.node[node]['blocked'] = True
 
             # do bfs
             if algo == 'lt':
@@ -80,8 +67,6 @@ for fn in filename:
             # check if dir exist
             if not os.path.isdir('../part_a'):
                 os.mkdir('../part_a')
-            if not os.path.isdir('../part_b'):
-                os.mkdir('../part_b')
 
             if block_ratio == 0:
                 # write infected nodes to output
@@ -89,11 +74,5 @@ for fn in filename:
                 for node in G.nodes():
                     if G.node[node]['infected']:
                         f.write(node + "\n")
-                f.close()
-            else:
-                # write block node list to output
-                f = open('../part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt', 'w')
-                for node in block_list:
-                    f.write(node['node'] + "\n")
                 f.close()
 
