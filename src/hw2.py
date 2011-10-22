@@ -6,14 +6,18 @@ from collections import deque
 import LT
 import IC
 import our
+import matplotlib.pyplot as plt
 
 
 filename = ('GrQc', 'HepPh', 'HepTh')
 algorithm = ('lt', 'ic', 'our')
 ratio = (0, 0.01, 0.02, 0.03, 0.04, 0.05)
+result = {}
 
 for fn in filename:
+    result[fn] = {}
     for algo in algorithm:
+        result[fn][algo] = {}
         for block_ratio in ratio:
             G = nx.DiGraph()
             queue = deque()
@@ -64,8 +68,11 @@ for fn in filename:
                 print 'Unknow algorithm'
                 continue
 
+            # result
+            result[fn][algo][block_ratio] = float(infected_node_num)/G.number_of_nodes()
+
             print '%s\t%s\t%.2f' % (fn, algo, block_ratio),
-            print str(infected_node_num) + '/' + str(G.number_of_nodes()) + "  \t" + str(float(infected_node_num)/G.number_of_nodes())
+            print str(infected_node_num) + '/' + str(G.number_of_nodes()) + "  \t" + str(result[fn][algo][block_ratio])
 
             # check if dir exist
             if not os.path.isdir('output'):
@@ -80,4 +87,26 @@ for fn in filename:
                     if G.node[node]['infected']:
                         f.write(node + "\n")
                 f.close()
+
+    # check if dir exist
+    if not os.path.isdir('output'):
+        os.mkdir('output')
+    if not os.path.isdir('output/image'):
+        os.mkdir('output/image')
+
+    # draw age.png
+    fig = plt.figure()
+    x = fig.add_subplot(111)
+    x.plot(ratio, map(lambda x: result[fn]['lt'][x], ratio), 'r-o', label="LT")
+    x = fig.add_subplot(111)
+    x.plot(ratio, map(lambda x: result[fn]['ic'][x], ratio), 'b-o', label="IC")
+    x = fig.add_subplot(111)
+    x.plot(ratio, map(lambda x: result[fn]['our'][x], ratio), 'g-o', label="our")
+    x.set_xticklabels(ratio)
+    plt.xlabel('Block Ratio')
+    plt.ylabel('Infected Ratio')
+    x.grid(True)
+    x.legend()
+    plt.title(fn)
+    plt.savefig("output/image/"+fn+".png", dpi=200)
 
