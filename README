@@ -1,6 +1,10 @@
 Usage
 =====
 
+- generate block node list
+
+    $ cd src && make block
+
 - run & generate output
 
     $ cd src && make run
