@@ -83,17 +83,17 @@ for fn in filename:
             if not os.path.isdir('../part_b'):
                 os.mkdir('../part_b')
 
-            # write infected nodes to output
             if block_ratio == 0:
+                # write infected nodes to output
                 f = open('../part_a/'+algo+'_ca-'+fn+'.txt', 'w')
                 for node in G.nodes():
                     if G.node[node]['infected']:
                         f.write(node + "\n")
                 f.close()
             else:
+                # write block node list to output
                 f = open('../part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt', 'w')
-                for node in G.nodes():
-                    if G.node[node]['infected']:
-                        f.write(node + "\n")
+                for node in block_list:
+                    f.write(node['node'] + "\n")
                 f.close()
 
