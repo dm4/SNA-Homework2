@@ -5,10 +5,11 @@ import networkx as nx
 from collections import deque
 import LT
 import IC
+import our
 
 
 filename = ('GrQc', 'HepPh', 'HepTh')
-algorithm = ('lt', 'ic')
+algorithm = ('lt', 'ic', 'our')
 ratio = (0, 0.01, 0.02, 0.03, 0.04, 0.05)
 
 for fn in filename:
@@ -57,6 +58,8 @@ for fn in filename:
                 infected_node_num = LT.bfs(G, queue, infected_node_num)
             elif algo == 'ic':
                 infected_node_num = IC.bfs(G, queue, infected_node_num)
+            elif algo == 'our':
+                infected_node_num = our.bfs(G, queue, infected_node_num)
             else:
                 print 'Unknow algorithm'
                 continue

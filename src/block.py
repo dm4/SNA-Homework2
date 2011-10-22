@@ -53,7 +53,7 @@ for fn in filename:
             os.mkdir('output/part_b')
 
         # write block node list to output
-        for algo in ('lt', 'ic'):
+        for algo in ('lt', 'ic', 'our'):
             f = open('output/part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt', 'w')
             print 'Generating block node list output/part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt'
             for node in block_list:
