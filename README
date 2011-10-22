@@ -1,0 +1,10 @@
+Usage
+=====
+
+- run & generate output
+
+    $ cd src && make run
+
+- clean
+
+    $ cd src && make clean
