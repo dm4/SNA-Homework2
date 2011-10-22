@@ -47,13 +47,15 @@ for fn in filename:
         block_list = block_list[:int(G.number_of_nodes() * block_ratio)]
 
         # check if dir exist
-        if not os.path.isdir('../part_b'):
-            os.mkdir('../part_b')
+        if not os.path.isdir('output'):
+            os.mkdir('output')
+        if not os.path.isdir('output/part_b'):
+            os.mkdir('output/part_b')
 
         # write block node list to output
         for algo in ('lt', 'ic'):
-            f = open('../part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt', 'w')
-            print 'Generating block node list ../part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt'
+            f = open('output/part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt', 'w')
+            print 'Generating block node list output/part_b/'+algo+'_'+str(block_ratio)+'_ca-'+fn+'.txt'
             for node in block_list:
                 f.write(node['node'] + "\n")
             f.close()

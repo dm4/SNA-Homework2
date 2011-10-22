@@ -65,12 +65,14 @@ for fn in filename:
             print str(infected_node_num) + '/' + str(G.number_of_nodes()) + "  \t" + str(float(infected_node_num)/G.number_of_nodes())
 
             # check if dir exist
-            if not os.path.isdir('../part_a'):
-                os.mkdir('../part_a')
+            if not os.path.isdir('output'):
+                os.mkdir('output')
+            if not os.path.isdir('output/part_a'):
+                os.mkdir('output/part_a')
 
             if block_ratio == 0:
                 # write infected nodes to output
-                f = open('../part_a/'+algo+'_ca-'+fn+'.txt', 'w')
+                f = open('output/part_a/'+algo+'_ca-'+fn+'.txt', 'w')
                 for node in G.nodes():
                     if G.node[node]['infected']:
                         f.write(node + "\n")

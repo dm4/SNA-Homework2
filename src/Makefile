@@ -3,5 +3,5 @@ block:
 run:
 	python hw2.py
 clean:
-	rm -rf ../part_a
+	rm -rf output
 	rm -r *.pyc
